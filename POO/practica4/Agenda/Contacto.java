@@ -16,47 +16,51 @@ public class Contacto {
         telefono = tel;
     }
 
-    String getNombre(){
+    public String getNombre(){
         return nombre;
     }
 
-    void setNombre(String nombre){
+    public void setNombre(String nombre){
         this.nombre = nombre;
     }
 
-    String getApPaterno(){
+    public String getApPaterno(){
         return apPaterno;
     }
 
-    void setApPaterno(String apPaterno){
+    public void setApPaterno(String apPaterno){
         this.apPaterno = apPaterno;
     }
 
-    String getApMaterno(){
+    public String getApMaterno(){
         return apMaterno;
     }
 
-    void setApMaterno(String apMaterno){
+    public void setApMaterno(String apMaterno){
         this.apMaterno = apMaterno;
     }
 
-    long getTelefono(){
+    public long getTelefono(){
         return telefono;
     }
 
-    void setTelefeono(long telefono){
+    public void setTelefeono(long telefono){
         this.telefono = telefono;
     }
 
-    String getTipo(){
+    public String getTipo(){
         return tipoContacto;
     }
 
-    void setTipo(String tipo){
+    public void setTipo(String tipo){
         this.tipoContacto = tipo;
     }
 
-    String datosObjeto(){
+    public String getNombreCompleto(){
+        return nombre + " " + apPaterno + " " + apMaterno; 
+    }
+
+    public String datosObjeto(){
         return "Nombre: "+ nombre + " " + apPaterno + " " + apMaterno + "\nTelefono: " + telefono + "\nTipo de contacto: " + tipoContacto;
     }
 }
