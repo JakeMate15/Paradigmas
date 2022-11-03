@@ -197,7 +197,11 @@ public class Recomendacion {
         System.out.println();
     }
 
+    public static void main(String[] args){
+        String[] nombres = {"El Padrino","El mago de Oz","Ciudadano Kane","Cadena perpetua","Pulp Fiction","Casablanca","Una odisea del espacio","Blade Runner","La naranja mecánica","Todo en un día","Alien ","Interestelar","Tron","Avengers","Batman","Dune","Wathcmen","Maze Runer","Death Note","Your Name"};
+        String[] directores = {"Steven Spielberg","Peter Jackson","Michael Bay","James Cameron","Christopher Nolan"};
+        String[] actores = {"Timothée Chalamet","Zendaya","Saoirse Ronan","Anya Taylor-Joy","Dev Patel","Margot Robbie","Daniel Kaluuya","Emma Stone","Michael B. Jordan","Adam Driver"};
+    }
 
-    
     
 }
