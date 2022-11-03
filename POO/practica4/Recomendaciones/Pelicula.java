@@ -56,11 +56,19 @@ public class Pelicula {
         return cad.toString();
     }
 
+    public String[] getListaActores(){
+        return actores;
+    }
+
     public void setActor(String actor) {
         if(noActores<TAM){
             actores[noActores] = actor;
             noActores++;
         }
+    }
+
+    public int getNoActores(){
+        return noActores;
     }
 
     public String getDirector() {
