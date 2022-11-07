@@ -51,6 +51,7 @@ public class Pelicula {
 
         for(int i=0;i<noActores;i++){
             cad.append(actores[i]);
+            cad.append(",\t");
         }
 
         return cad.toString();
@@ -84,6 +85,7 @@ public class Pelicula {
 
         for(int i=0;i<noPremios;i++){
             cad.append(premios[i]);
+            cad.append(",\t");
         }
 
         return cad.toString();
@@ -91,19 +93,25 @@ public class Pelicula {
 
     public void setPremio(String premio) {
         if(noPremios<TAM){
-            premios[noActores] = premio;
+            premios[noPremios] = premio;
             noPremios++;
         }
     }
 
     public String verInformacion() {
-        return "\nNombre: " + getNombre() + "\n" +
-            "Año de estreno" + getYearEstreno() + "\n" +
-            "Genero" + getGenero() + "\n" +
-            "Actores: " + getActores() + "\n" +
-            "Director: " + getDirector() + "\n" +
-            "Premios: " + getPremios() + "\n";
+        return "\nNombre:\t" + getNombre() + "\n" +
+            "Año de estreno:\t" + getYearEstreno() + "\n" +
+            "Genero:\t" + getGenero() + "\n" +
+            "Actores:\t" + getActores() + "\n" +
+            "Director:\t" + getDirector() + "\n" +
+            "Premios:\t" + getPremios() + "\n";
     }
 
+    public boolean equals(Pelicula p){
+        if(nombre.equals(p.getNombre()))
+            return true;
+        else
+            return false;
+    }
 
 }
