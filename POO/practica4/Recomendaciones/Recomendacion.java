@@ -6,8 +6,7 @@ public class Recomendacion {
     private Set<String> directores;
     private Set<String> generos;
     private Set<Pelicula> recomendaciones;
-
-
+    
     public Recomendacion(){
         peliculas = new HashSet<Pelicula>();
         actores  = new HashSet<String>();
@@ -158,13 +157,12 @@ public class Recomendacion {
     }
 
     public void muestraRecomendaciones(){
+        System.out.println("\nTe recomendamos: \n");
         for(Pelicula x : recomendaciones){
             System.out.println(x.getNombre());
         }
+        System.out.println();
     }
-
-
-
     public static void main(String[] args){
         Recomendacion r = new Recomendacion();
         String directores,actores,generos;
@@ -190,17 +188,18 @@ public class Recomendacion {
                             r.muestraCatalogo();
                             break;
                 case 2:
-                            System.out.println("Los actores disponibles son: ");
+                            System.out.println("\nLos actores disponibles son: ");
                             r.muestraActores();
                             System.out.print("Ingresa tus preferencias mediante el número correspondiente (Si ingresas un número no válido o 0, omitiras este campo) y separandolo por comas y/o espacios: ");
                             actores = lec.nextLine();
+                            actores = lec.nextLine();
                     
-                            System.out.println("Los directores disponibles son: ");
+                            System.out.println("\nLos directores disponibles son: ");
                             r.muestraDirectores();
                             System.out.print("Ingresa tus preferencias mediante el número correspondiente (Si ingresas un número no válido o 0, omitiras este campo) y separandolo por comas y/o espacios: ");
                             directores = lec.nextLine();
                     
-                            System.out.println("Los generos disponibles son: ");
+                            System.out.println("\nLos generos disponibles son: ");
                             r.muestraGeneros();
                             System.out.print("Ingresa tus preferencias mediante el número correspondiente (Si ingresas un número no válido o 0, omitiras este campo) y separandolo por comas y/o espacios: ");
                             generos = lec.nextLine();
