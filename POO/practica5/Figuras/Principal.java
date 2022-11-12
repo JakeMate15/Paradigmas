@@ -16,7 +16,7 @@ public class Principal {
         
         for(int i=0; i<figs.length;i++){
             figs[i].imprimirInformacion();
-            System.out.println();
+            System.out.println(); 
         }
     }
 }
