@@ -21,28 +21,43 @@ public class Figura {
         double altura = Math.abs(p2.getCoordY()-p1.getCoordY());
         double ancho = Math.abs(p2.getCoordX()-p1.getCoordX());
 
-        if(altura == ancho){
-            nombre = "Cuadrado";
-            area = ancho*ancho;
-            perimetro = altura * 4;
+        if(!colineales(p1,p2)){
+            if(altura == ancho){
+                nombre = "Cuadrado";
+                area = ancho*ancho;
+                perimetro = altura * 4;
+            }
+            else{
+                nombre = "Rectangulo";
+                area = altura*ancho;
+                perimetro = 2*ancho + 2*altura;
+            }
         }
         else{
-            nombre = "Rectangulo";
-            area = altura*ancho;
-            perimetro = 2*ancho + 2*altura;
-        }
+            nombre = "Cuadrilatero sin puntos en esquina opuesta";
+            area = 0;
+            perimetro = 0;
+        }    
     }
             
-    //Traingulo
+    //Triangulo
     public Figura(Punto p1, Punto p2, Punto p3){
-        double a = distPuntos(p1,p2);
-        double b = distPuntos(p2, p3);
-        double c = distPuntos(p3, p1);
-        double p = (a+b+c)/2;
-
-        nombre = "Triangulo";
-        perimetro = a+b+c;
-        area = Math.sqrt(p*(p-a)*(p-b)*(p-c));
+        double a,b,c,area;
+        
+        area = colineales(p1, p2, p3);
+        if(area > 0){
+            nombre = "Triangulo";
+            a = distPuntos(p1, p2);
+            b = distPuntos(p2, p3);
+            c = distPuntos(p3, p1);
+            perimetro = a+b+c;
+            this.area = area;
+        }
+        else{
+            nombre = "Triángulo con sus tres puntos colineales";
+            this.area = 0;
+            perimetro = 0;
+        }
     }
 
     private double distPuntos(Punto p1, Punto p2){
@@ -52,6 +67,41 @@ public class Figura {
         double y2 = p2.getCoordY();
 
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+    }
+
+    private double colineales(Punto p1, Punto p2, Punto p3){
+        double x1,y1,x2,y2,x3,y3,colTest;
+
+        x1 = p1.getCoordX();
+        y1 = p1.getCoordY();
+        x2 = p2.getCoordX();
+        y2 = p2.getCoordY();
+        x3 = p3.getCoordX();
+        y3 = p3.getCoordY();
+
+        colTest =   x1*(y2-y3) +
+                    x2*(y3-y1) +
+                    x3*(y1-y2);
+
+
+        return Math.abs(colTest*0.5);
+    }
+
+    private boolean colineales(Punto p1, Punto p2){
+        boolean res;
+        double x1,y1,x2,y2;
+        
+        x1 = p1.getCoordX();
+        y1 = p1.getCoordY();
+        x2 = p2.getCoordX();
+        y2 = p2.getCoordY();
+
+        if((x1==x2) || (y1==y2))
+            res = true;
+        else
+            res = false;
+        
+        return res;
     }
 
     public void imprimirInformacion(){
