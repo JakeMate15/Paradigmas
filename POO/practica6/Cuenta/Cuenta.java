@@ -11,7 +11,7 @@ public class Cuenta {
     public Cuenta(){
         numero = 0;
         nip = "";
-        saldo = 0;
+        saldo = 0.0f;
         interesAnual = 0;
         titular = new Cliente();
         movimientos = new ArrayList<Movimiento>();
@@ -35,7 +35,7 @@ public class Cuenta {
 
         if(cantidad > 0 && cantidad <= saldo){
             saldo-=cantidad;
-            movimientos.add(new Movimiento(new Date(),'r',cantidad,saldo));
+            movimientos.add(new Movimiento(Calendar.getInstance(),'r',cantidad,saldo));
             res = true;
         }
 
@@ -44,16 +44,16 @@ public class Cuenta {
 
     public void deposito(float cantidad){
         saldo+=cantidad;
-        movimientos.add(new Movimiento(new Date(), 'd', cantidad, saldo));
+        movimientos.add(new Movimiento(Calendar.getInstance(), 'd', cantidad, saldo));
     }
 
-    public boolean operacion(Cuenta destino, float cantidad){
+    public boolean transferencia(Cuenta destino, float cantidad){
         boolean res = false;
 
         if(cantidad <= saldo){
             saldo-=cantidad;
             destino.deposito(cantidad);
-            movimientos.add(new Movimiento(new Date(), 't', cantidad, saldo));
+            movimientos.add(new Movimiento(Calendar.getInstance(), 't', cantidad, saldo));
             res = true;
         }
 
@@ -73,6 +73,7 @@ public class Cuenta {
     }
 
     public float consulaSaldo() {
+        movimientos.add(new Movimiento(Calendar.getInstance(), 'c', 0, saldo));
         return this.saldo;
     }
 
@@ -123,13 +124,17 @@ public class Cuenta {
         return res;
     }
 
+    public void imprimeMovimientos(){
+        for(int i=0; i<movimientos.size(); i++){
+            System.out.println("\nMovimiento " + (i+1) + ":\n");
+            movimientos.get(i).imprimeInformacion();
+        }
+    }
+
     public void imprimeInformacion(){
-        System.out.println("\nNumero: " + numero);
-        System.out.println("Nombre del titular: " + titular.getNombre() + titular.getPaterno() + titular.getMaterno());
-        System.out.println("\nDireccion: " + titular.getDireccion());
-        System.out.println("\nNip: " + nip);
-        System.out.println("\nSaldo: " + saldo);
-        System.out.println("\nInteres anual: " + interesAnual);
+        System.out.println("Numero: " + numero);
+        System.out.println("Saldo: " + saldo);
+        System.out.println("Interes anual: " + interesAnual);
 
         for(int i=0; i<movimientos.size(); i++){
             System.out.println("\nMovimiento " + (i+1) + ":\n");

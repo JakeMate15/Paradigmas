@@ -6,7 +6,7 @@ public class Cliente {
     private String paterno;
     private String materno;
     private String direccion;
-    private Date fN;
+    private Calendar fN;
 
     public Cliente(){
         nombre = "";
@@ -16,7 +16,7 @@ public class Cliente {
         fN = null;
     }
 
-    public Cliente(String nombre, String paterno, String materno, String direccion, Date fN) {
+    public Cliente(String nombre, String paterno, String materno, String direccion, Calendar fN) {
         this.nombre = nombre;
         this.paterno = paterno;
         this.materno = materno;
@@ -56,27 +56,26 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public void setFecha(Date fecha){
+    public void setFecha(Calendar fecha){
         fN = fecha;
     }
 
     public String getFecha(){
-        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
-        return formatoFecha.format(fN);
+        return "\nFecha de nacimiento: " + fN.get(Calendar.DATE) + "/" + fN.get(Calendar.MONTH) +"/" + fN.get(Calendar.YEAR);
     }
 
     public String infoCliente(){
         return 
-            "\nNombre: " + nombre + " " + paterno + " " + materno +
-            "\nDireccion: " +  direccion + "\n"+
-            "\nFecha nacimiento: " + getFecha() + "\n";
+            "Nombre: " + nombre + " " + paterno + " " + materno +
+            "\nDireccion: " +  direccion +
+            getFecha() + "\n";
     }
 
     public void imprimeInfo() {
         System.out.println(
             "Nombre: " + nombre + " " + paterno + " " + materno +
             "\nDireccion: " +  direccion + "\n"+
-            "\nFecha nacimiento: " + getFecha() + "\n"
+            getFecha() + "\n"
         );
     }
 

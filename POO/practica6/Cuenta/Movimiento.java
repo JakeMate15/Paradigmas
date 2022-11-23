@@ -1,13 +1,12 @@
-import java.text.*;
 import java.util.*;
 
 public class Movimiento{
-    private Date fecha;
+    private Calendar fecha;
     private char tipo;
     private float importe;
     private float saldoHistorico;
 
-    public Movimiento(Date fecha, char tipo, float importe, float saldoHistorico){
+    public Movimiento(Calendar fecha, char tipo, float importe, float saldoHistorico){
         this.fecha = fecha;
         this.tipo = tipo;
         this.importe = importe;
@@ -15,10 +14,9 @@ public class Movimiento{
     }
 
     public void imprimeInformacion(){
-        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
 
         System.out.println(
-            "Fecha: " + formatoFecha.format(fecha) +
+            "Fecha: " +  + fecha.get(Calendar.DATE) + "/" + fecha.get(Calendar.MONTH) +"/" + fecha.get(Calendar.YEAR) +
             "\nTipo: " + tipo +
             "\nImporte: " + importe +
             "\nSaldo Historico: " + saldoHistorico +
