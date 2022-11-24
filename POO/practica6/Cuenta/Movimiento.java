@@ -1,5 +1,4 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
 public class Movimiento{
