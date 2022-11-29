@@ -1,5 +1,4 @@
 import java.util.*;
-import java.text.*;
 
 public class Cliente {
     private String nombre;

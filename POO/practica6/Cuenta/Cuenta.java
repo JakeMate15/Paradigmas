@@ -35,7 +35,7 @@ public class Cuenta {
 
         if(cantidad > 0 && cantidad <= saldo){
             saldo-=cantidad;
-            movimientos.add(new Movimiento(Calendar.getInstance(),'r',cantidad,saldo));
+            movimientos.add(new Movimiento(Calendar.getInstance(),"Retiro",cantidad,saldo));
             res = true;
         }
 
@@ -44,7 +44,7 @@ public class Cuenta {
 
     public void deposito(float cantidad){
         saldo+=cantidad;
-        movimientos.add(new Movimiento(Calendar.getInstance(), 'd', cantidad, saldo));
+        movimientos.add(new Movimiento(Calendar.getInstance(), "Deposito", cantidad, saldo));
     }
 
     public boolean transferencia(Cuenta destino, float cantidad){
@@ -53,7 +53,7 @@ public class Cuenta {
         if(cantidad <= saldo){
             saldo-=cantidad;
             destino.deposito(cantidad);
-            movimientos.add(new Movimiento(Calendar.getInstance(), 't', cantidad, saldo));
+            movimientos.add(new Movimiento(Calendar.getInstance(), "Transferencia", cantidad, saldo));
             res = true;
         }
 
@@ -73,7 +73,7 @@ public class Cuenta {
     }
 
     public float consulaSaldo() {
-        movimientos.add(new Movimiento(Calendar.getInstance(), 'c', 0, saldo));
+        movimientos.add(new Movimiento(Calendar.getInstance(), "Consulta", 0, saldo));
         return this.saldo;
     }
 

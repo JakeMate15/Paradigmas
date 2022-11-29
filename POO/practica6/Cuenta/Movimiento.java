@@ -2,11 +2,11 @@ import java.util.*;
 
 public class Movimiento{
     private Calendar fecha;
-    private char tipo;
+    private String tipo;
     private float importe;
     private float saldoHistorico;
 
-    public Movimiento(Calendar fecha, char tipo, float importe, float saldoHistorico){
+    public Movimiento(Calendar fecha, String tipo, float importe, float saldoHistorico){
         this.fecha = fecha;
         this.tipo = tipo;
         this.importe = importe;
