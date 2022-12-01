@@ -93,11 +93,6 @@ public class Cuenta {
         return titular.infoCliente();
     }
 
-    public float operacion(){
-        System.out.println("Su saldo es: " + saldo);
-        return saldo;
-    }
-
     public boolean operacion(String nuevoNip){
         boolean res = false;
 
@@ -129,6 +124,7 @@ public class Cuenta {
             System.out.println("\nMovimiento " + (i+1) + ":\n");
             movimientos.get(i).imprimeInformacion();
         }
+
     }
 
     public void imprimeInformacion(){
