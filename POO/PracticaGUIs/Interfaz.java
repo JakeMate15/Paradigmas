@@ -18,7 +18,8 @@ import javax.swing.*;
 public class Interfaz extends JFrame implements ActionListener{
     private JPanel tabs[];
     private JTabbedPane tabPanel;
-    private JLabel labUser, labPass, validacion, winner, screen;
+    private JLabel labUser, labPass, validacion, winner;
+    private JTextField screen;
     private JTextField tfUser, tfPass;
     private JButton btChess[];
     private JButton btTicTac[];
@@ -62,10 +63,11 @@ public class Interfaz extends JFrame implements ActionListener{
             tabs[i] = new JPanel();
             tabs[i].setPreferredSize(new Dimension(600, 600));
         }
+
         tabs[0].setLayout(null);
         tabs[1].setLayout(new GridLayout(8, 8));
         tabs[2].setLayout(new BorderLayout());
-        tabs[3].setLayout(new FlowLayout());
+        tabs[3].setLayout(new GridLayout(6,4));
         tabPanel.addTab("Iniciar Sesion", tabs[0]);
         tabPanel.addTab("Juego de Ajedrez", tabs[1]);
         tabPanel.addTab("Tic Tac Toe", tabs[2]);
@@ -193,17 +195,15 @@ public class Interfaz extends JFrame implements ActionListener{
             btTicTac[i].setText(""+i);
         }
         tabs[2].add(casillas);
-
-        
         
     }
     
     public void calculadora(){
-        screen = new JLabel();
+        screen  = new JTextField(12);
         String texto[] = {"MC","M+","M-","MR","C","+-","/","X","7","8","9","-","4","5","6",
-        "+","1","2","3","=","0","."}; 
+        "+","1","2","3","%","=","0","."}; 
         tabs[3].add(screen);
-        btCalc = new JButton[22];
+        btCalc = new JButton[23];
         for(int i = 0; i < btCalc.length; i++){
             btCalc[i] = new JButton(texto[i]);        
             tabs[3].add(btCalc[i]);
