@@ -16,7 +16,9 @@ public class FuncionamientoLogin {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login().setVisible(true);
+                login log = new login();
+                log.setVisible(true);
+                log.setLocationRelativeTo(null);
             }
         });
     }
