@@ -8,10 +8,16 @@ public class Producto {
     private double precio;
     private String marca;
     private int id;
+    private String nombre;
     
-    public Producto(double precio, String marca, int id){
+    public Producto(double precio, String marca, int id, String nombre){
         this.precio = precio;
         this.marca = marca;
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public Producto(int id){
         this.id = id;
     }
 
@@ -38,5 +44,38 @@ public class Producto {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    @Override
+    public String toString() {
+        return "{" +
+            " precio='" + getPrecio() + "'" +
+            ", marca='" + getMarca() + "'" +
+            ", id='" + getId() + "'" +
+            "}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto other = (Producto) obj;
+        return this.id == other.id;
+    }
+
     
 }

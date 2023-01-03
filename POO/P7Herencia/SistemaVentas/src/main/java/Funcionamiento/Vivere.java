@@ -1,24 +1,37 @@
 package Funcionamiento;
+import java.util.*;
 
 /**
  *
  * @author erikm
  */
 public class Vivere extends Producto{
-    private int Caducidad;
+    private Calendar Caducidad;
 
-    public Vivere(int Caducidad, double precio, String marca, int id) {
-        super(precio, marca, id);
+    public Vivere(Calendar Caducidad, double precio, String marca, int id, String nombre) {
+        super(precio, marca, id,nombre);
         this.Caducidad = Caducidad;
     }
 
-    public int getCaducidad() {
+    public Vivere(int id){
+        super(id);
+        this.Caducidad=null;
+    }    
+
+    public Calendar getCaducidad() {
         return Caducidad;
     }
 
-    public void setCaducidad(int Caducidad) {
+    public void setCaducidad(Calendar Caducidad) {
         this.Caducidad = Caducidad;
     }
     
+
+    @Override
+    public String toString() {
+        return super.toString() + "{" +
+            " Caducidad='" + getCaducidad() + "'" +
+            "}";
+    }
     
 }

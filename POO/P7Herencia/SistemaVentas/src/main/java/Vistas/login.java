@@ -22,12 +22,14 @@ public class login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private ArrayList<Usuario> usuarios;
     private Usuario sesion;
+    private Inventario inv;
     
-    public login() {
+    public login(Inventario inv) {
         initComponents();
         usuarios = new ArrayList<Usuario>();
         usuarios.add(new Usuario("Erik","Morales","Erik123","prueba123",true));
         usuarios.add(new Usuario("Eduardo","Morales","lalouser","contra",false));
+        this.inv = inv;
     }
 
     /**
@@ -107,10 +109,12 @@ public class login extends javax.swing.JFrame {
         try{
             if(usuarios.contains(sesion)){
                 int pos = usuarios.indexOf(sesion);
+                Usuario u = usuarios.get(pos);
 
 
-                if(usuarios.get(pos).getTipo()){
-                    System.out.println("admin");
+                if(u.getTipo()){
+                    vistaAdmin(u.getNombre());
+                    this.setVisible(false);
                 }
                 else{
                     System.out.println("cliente");
@@ -126,4 +130,37 @@ public class login extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    private void vistaAdmin(String nombre){
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Administrador ad = new Administrador(nombre,inv);
+                ad.setVisible(true);
+                ad.setLocationRelativeTo(null);
+                ad.setResizable(false);
+            }
+        });
+    }
 }
+
+
