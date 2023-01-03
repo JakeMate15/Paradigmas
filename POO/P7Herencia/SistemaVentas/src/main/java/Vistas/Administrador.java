@@ -5,6 +5,7 @@
 package Vistas;
 import Funcionamiento.*;
 import java.util.*;
+import javax.swing.*;
 
 /**
  *
@@ -138,6 +139,12 @@ public class Administrador extends javax.swing.JFrame {
         jLabel10.setText("Precio");
         ElectroBtn.setText("Añadir");
         precioTxtMod.setText("0.00");
+
+        jTextField3.setText("0.00");
+        jSpinner1.setValue(1);
+        dia.setValue(Calendar.getInstance().get(Calendar.DATE));
+        dia1.setValue(Calendar.getInstance().get(Calendar.MONTH)+1);
+        dia2.setValue(Calendar.getInstance().get(Calendar.YEAR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -391,6 +398,11 @@ public class Administrador extends javax.swing.JFrame {
         jLabel20.setText("Cantidad");
 
         jButton2.setText("Aceptar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -555,22 +567,33 @@ public class Administrador extends javax.swing.JFrame {
         int id = inv.getControlId();
         double precio = Double.parseDouble(jTextField3.getText()); 
         int cantidad = (Integer)jSpinner1.getValue();
+
         
+        try{
+            if(precio <= 0) throw new Exepciones("Precio no valido");
+            if(nombre.equals("") || marca.equals("") || jTextField3.getText().equals("")) throw new Exepciones("No debe haber campos vacios");
+            if(cantidad<1)  throw new Exepciones("Introduzaca una cantidad de articulos valida");
 
-        if(tipoProducto.getSelectedItem().toString().equals("Vivere")){
-            int di = (Integer)dia.getValue();
-            int mes = (Integer)dia1.getValue();
-            int year = (Integer)dia2.getValue();
-            Calendar cad = new GregorianCalendar(year,mes,di);
+            if(tipoProducto.getSelectedItem().toString().equals("Vivere")){
+                int di = (Integer)dia.getValue();
+                int mes = (Integer)dia1.getValue();
+                int year = (Integer)dia2.getValue();
+                Calendar cad = new GregorianCalendar(year,mes,di);
+                
+                if(!cad.before(Calendar.getInstance()))  throw new Exepciones("La fecha ya ha pasado");
 
-            inv.creaProducto(new Vivere(cad, precio, marca, id, nombre), cantidad, id);
-
+                inv.creaProducto(new Vivere(cad, precio, marca, id, nombre), cantidad, id);
+    
+            }
+            else{
+                inv.creaProducto(new Electrodomestico(precio, marca, id, nombre), cantidad, id);
+            }
+    
+            inv.addId();
+        }catch(Exepciones e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
         }
-        else{
-            inv.creaProducto(new Electrodomestico(precio, marca, id, nombre), cantidad, id);
-        }
 
-        inv.addId();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //Cerrar la sesion actual
@@ -588,7 +611,26 @@ public class Administrador extends javax.swing.JFrame {
     }
 
     //Aceptar la modificacion    
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {   
+        String nombre = selectorProductoMod.getSelectedItem().toString();     
+        int id,cantidad;
+        double precio;
+        
+        try{
+            if(selectorTipoMod.getSelectedItem().toString().equals("Vivere")){
+                id = viveres.get(nombre);
+            }
+            else{
+                id = electro.get(nombre);
+            } 
+
+            cantidad = (Integer)cantidadModificacion.getValue();
+            precio = Double.valueOf(precioTxtMod.getText());
+
+            inv.modificaInventario(cantidad, id);
+            inv.actualizaPrecio(id, precio);
+        }catch(Exepciones e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+        }
     }  
 }

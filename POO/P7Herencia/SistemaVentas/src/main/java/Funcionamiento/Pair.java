@@ -33,12 +33,8 @@ public class Pair{
         this.second = second;
     }
     
-    public void addSecond(Integer add){
-        second+=add;
-    }
-    
-    public void rest(Integer r){
-        second-=r;
+    public void setPrecio(double cantidad){
+        first.setPrecio(cantidad);
     }
 
 }

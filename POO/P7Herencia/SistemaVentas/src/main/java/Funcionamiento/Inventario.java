@@ -23,20 +23,24 @@ public class Inventario {
         inv.put(id, new Pair(p,cantidad));
     }
 
-    public void agregaInventario(Producto p, int cantidad, Integer id){
-        Pair aux = inv.get(id);
-        aux.addSecond(cantidad);
-        inv.put(id, aux);
-    }
+    public void modificaInventario(int cantidad, Integer id){
+        if(cantidad<=0) throw new Exepciones("La cantidad de productos debe ser al menos 1");
 
-    public void reduceInventario(Producto p, int cantidad, Integer id){
         Pair aux = inv.get(id);
-        aux.rest(cantidad);
+        aux.setSecond(cantidad);
         inv.put(id,aux);
     }
 
     public int consultaInventario(Integer id){
         return  inv.get(id).getSecond();
+    }
+
+    public void actualizaPrecio(int id, double cantidad){
+        if(cantidad<=0) throw new Exepciones("El precio debe ser mayor o igual a 0");
+        
+        Pair aux = inv.get(id);
+        aux.setPrecio(cantidad);
+        inv.put(id, aux);
     }
 
     public void imprimeHasMap(){
