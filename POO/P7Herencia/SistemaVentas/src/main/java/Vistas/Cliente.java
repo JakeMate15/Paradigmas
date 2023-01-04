@@ -17,6 +17,7 @@ public class Cliente extends javax.swing.JFrame {
     private Inventario inv;
     private HashMap<String,Integer> viveres;
     private HashMap<String,Integer> electro;
+    private HashMap<Integer,Integer> productos;
     private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnGeneraTicker;
     private javax.swing.JLabel cantidadCompra;
@@ -45,6 +46,7 @@ public class Cliente extends javax.swing.JFrame {
         this.inv = inv;
         viveres = inv.getViveres();
         electro = inv.getElectrodomesticos();
+        productos = new HashMap<Integer,Integer>(); 
         initComponents();
     }
 
@@ -317,18 +319,21 @@ public class Cliente extends javax.swing.JFrame {
 
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {   
         int cantidad = (Integer)cantidadCompraSelector.getValue();
-        String nombre = selectorArticuloCombo.getSelectedItem().toString();
-        HashMap<Integer,Integer> productos = new HashMap();  
+        String nombre = selectorArticuloCombo.getSelectedItem().toString(); 
         int id,cantInventario;
-        double precio,subtotal;  
+        double precio;  
         String marca,fech;
         Calendar fecha;
 
         if(selectorTipoCombo.getSelectedItem().toString().equals("Vivere")){
             id = viveres.get(nombre);
+            fecha = ((Vivere)inv.getProducto(id)).getCaducidad();
+            fech = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH)) +"/" + fecha.get(Calendar.YEAR);
         }
         else{
             id = electro.get(nombre);
+            fecha = Calendar.getInstance();
+            fech = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH)+1) +"/" + (fecha.get(Calendar.YEAR)+1);
         } 
 
         cantInventario = inv.consultaInventario(id);
@@ -341,11 +346,21 @@ public class Cliente extends javax.swing.JFrame {
 
             precio = inv.getProducto(id).getPrecio();
             marca = inv.getProducto(id).getMarca();
-            fecha = 
-            modelo.addRow(new Object[]{id,nombre,,,precio,cantidad,cantidad*precio});
+            modelo.addRow(new Object[]{id,nombre,marca,fech,precio,cantidad,cantidad*precio});
+            totalCompraTxt.setText(String.valueOf(obtenSuma(productos)));
         }
         catch(Exepciones e){
             JOptionPane.showMessageDialog(null, e.getMessage() +" articulos","Error",JOptionPane.WARNING_MESSAGE);
         }
-    }  
+    } 
+    
+    private double obtenSuma(HashMap<Integer,Integer> carrito){
+        double res = 0;
+
+        for(int x: carrito.keySet()){
+            res+=(inv.getProducto(x).getPrecio()*carrito.get(x));
+        }
+
+        return res;
+    }
 }
