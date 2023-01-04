@@ -7,6 +7,8 @@ import Funcionamiento.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.*;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -107,6 +109,11 @@ public class Cliente extends javax.swing.JFrame {
         totalCompraTxt.setText("$0.00");
 
         btnGeneraTicker.setText("Generar Ticket");
+        btnGeneraTicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeneraTickerActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Articulo:");
 
@@ -290,7 +297,6 @@ public class Cliente extends javax.swing.JFrame {
         selectorArticuloCombo.setModel(new javax.swing.DefaultComboBoxModel<>(listaViveres));
     }  
     
-    
     //Selector de articulo
     private void selectorArticuloComboActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         double precio;
@@ -362,5 +368,82 @@ public class Cliente extends javax.swing.JFrame {
         }
 
         return res;
+    }
+
+    //Generacion del ticket
+    private void btnGeneraTickerActionPerformed(java.awt.event.ActionEvent evt) {
+        int cantidadFilas = modelo.getRowCount();
+
+        try{
+            if(cantidadFilas<=0)    throw new Exepciones("Agregue productos al carrito");
+
+            File dir = new File("ticket.txt");
+            FileOutputStream arch = new FileOutputStream(dir);
+            OutputStreamWriter escritor = new OutputStreamWriter(arch);    
+            Writer w = new BufferedWriter(escritor);
+            w.write(contruyeCadTicket());
+            w.close();
+            /* 
+            System.out.println("-".repeat(85));
+            System.out.printf("|%-20s|%-20s|%-20s|%-20s|\n", "Descripción", "Precio", "Cantidad", "Subtotal");
+            System.out.println("-".repeat(85));*/
+        }
+        catch(Exepciones e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+        }
+        catch (IOException e) {
+            System.err.println("Hay algun error el escritura del archivo");
+        }
+    }
+
+    private String contruyeCadTicket(){
+        StringBuilder cad = new StringBuilder();
+        Calendar fecha = Calendar.getInstance();
+        String id,cantidad,desc,fedh,precio,subtotal;
+        double form;
+        DecimalFormat forMoneda = new DecimalFormat("0.00");
+
+        cad.append(" ".repeat(39));
+        cad.append("Tienda ESCOM");
+        cad.append("\n");
+        cad.append(" ".repeat(38));
+        cad.append("Fecha: ");
+        cad.append(fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH)+1) +"/" + fecha.get(Calendar.YEAR));
+        cad.append("\n");
+        cad.append("Cliente: ");
+        cad.append(nombre);
+        cad.append("\n\n");
+        cad.append("-".repeat(92));
+        cad.append("\n| Id | Cantidad |            descripcion            |    fecha   |   precio   |  subtotal  |");
+        cad.append("\n");
+        cad.append("-".repeat(92));
+        cad.append("\n");
+
+        for(int i=0; i<modelo.getRowCount();i++){
+            id = String.valueOf(modelo.getValueAt(i, 0));
+            cantidad = String.valueOf(modelo.getValueAt(i, 5));
+            desc = String.valueOf(modelo.getValueAt(i, 2));
+            fedh = String.valueOf(modelo.getValueAt(i, 3));
+
+            form = ((Number)modelo.getValueAt(i, 4)).doubleValue();
+            precio = "$" + String.format("%,.2f",form);
+
+            form = ((Number)modelo.getValueAt(i, 6)).doubleValue();
+            subtotal = "$" + String.format("%,.2f",form);
+
+            cad.append(String.format( "|%-4s|%-10s|%-35s|%-12s|%-12s|%-12s|\n", id,cantidad,desc,fedh,precio,subtotal));
+        }
+        cad.append("-".repeat(92));
+        cad.append("\n");
+        cad.append(" ".repeat(70));
+        cad.append("Total");
+        cad.append(" ".repeat(5));
+        cad.append(obtenSuma(productos));
+        cad.append("\n");
+        cad.append("\n");
+        cad.append("El apartado fecha indica la caducidad o garantia dependiendo el tipo de producto");
+        
+
+        return cad.toString();
     }
 }

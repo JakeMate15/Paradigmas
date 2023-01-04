@@ -18,6 +18,7 @@ public class Vivere extends Producto{
         this.Caducidad=null;
     }    
 
+    @Override
     public Calendar getCaducidad() {
         return Caducidad;
     }

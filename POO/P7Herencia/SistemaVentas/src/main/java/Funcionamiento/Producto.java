@@ -1,4 +1,5 @@
 package Funcionamiento;
+import java.util.*;
 
 /**
  *
@@ -51,6 +52,14 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Calendar getCaducidad() {
+        Calendar fecha = Calendar.getInstance();
+        fecha.add(Calendar.MONTH, 1);
+        fecha.add(Calendar.YEAR,1);
+
+        return fecha;
     }
     
     @Override

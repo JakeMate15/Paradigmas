@@ -580,7 +580,7 @@ public class Administrador extends javax.swing.JFrame {
                 int year = (Integer)dia2.getValue();
                 Calendar cad = new GregorianCalendar(year,mes,di);
                 
-                if(!cad.before(Calendar.getInstance()))  throw new Exepciones("La fecha ya ha pasado");
+                if(cad.before(Calendar.getInstance()))  throw new Exepciones("La fecha ya ha pasado");
 
                 inv.creaProducto(new Vivere(cad, precio, marca, id, nombre), cantidad, id);
     
