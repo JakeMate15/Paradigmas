@@ -108,7 +108,8 @@ public class login extends javax.swing.JFrame {
                     this.setVisible(false);
                 }
                 else{
-                    System.out.println("cliente");
+                    vistaCliente(u.getNombre());
+                    this.setVisible(false);
                 }
             }
             else{
@@ -149,6 +150,36 @@ public class login extends javax.swing.JFrame {
                 ad.setVisible(true);
                 ad.setLocationRelativeTo(null);
                 ad.setResizable(false);
+            }
+        });
+    }
+
+    private void vistaCliente(String nombre){
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Cliente vC = new Cliente(nombre,inv);
+                vC.setVisible(true);
+                vC.setLocationRelativeTo(null);
+                vC.setResizable(false);
             }
         });
     }
