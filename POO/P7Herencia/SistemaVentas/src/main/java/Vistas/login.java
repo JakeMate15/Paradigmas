@@ -118,8 +118,6 @@ public class login extends javax.swing.JFrame {
         }
         catch(Exepciones e){
             JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
-   
-            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

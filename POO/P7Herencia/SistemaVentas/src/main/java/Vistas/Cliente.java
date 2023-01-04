@@ -6,6 +6,7 @@ package Vistas;
 import Funcionamiento.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel cantidadCompra;
     private javax.swing.JSpinner cantidadCompraSelector;
     private javax.swing.JTable carritoCompra;
+    private DefaultTableModel modelo;
     private javax.swing.JButton cerrarSesionCliente;
     private javax.swing.JLabel fechaVivereLabel;
     private javax.swing.JLabel jLabel1;
@@ -81,13 +83,12 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
-        carritoCompra.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-            },
+        modelo = new DefaultTableModel(new Object [][] {},
             new String [] {
-                "Producto", "Precio", "Cantidad", "Subtotal"
-            }
-        ));
+                "Id","Producto","Marca","Fecha", "Precio", "Cantidad", "Subtotal"
+        });
+
+        carritoCompra.setModel(modelo);
         jScrollPane1.setViewportView(carritoCompra);
 
         agregarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/carr.jpg")));
@@ -314,11 +315,14 @@ public class Cliente extends javax.swing.JFrame {
     
     }  
 
-    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {   
         int cantidad = (Integer)cantidadCompraSelector.getValue();
         String nombre = selectorArticuloCombo.getSelectedItem().toString();
-        int id;
-        //DefaultTableModel model = (DefaultTableModel) carritoCompra.getModel();
+        HashMap<Integer,Integer> productos = new HashMap();  
+        int id,cantInventario;
+        double precio,subtotal;  
+        String marca,fech;
+        Calendar fecha;
 
         if(selectorTipoCombo.getSelectedItem().toString().equals("Vivere")){
             id = viveres.get(nombre);
@@ -327,10 +331,21 @@ public class Cliente extends javax.swing.JFrame {
             id = electro.get(nombre);
         } 
 
-        //model.addRow(new Object[]{"Column 1", "Column 2", "Column 3","colum 32"});
+        cantInventario = inv.consultaInventario(id);
 
-        if(inv.consultaInventario(id)>=cantidad){
-            inv.modificaInventario(inv.consultaInventario(id)-cantidad, id);
+        try{
+            if(cantidad>cantInventario) throw new Exepciones("No hay suficientes productos en el inventario");
+
+            inv.modificaInventario(cantInventario-cantidad, id);
+            productos.put(id,cantidad);
+
+            precio = inv.getProducto(id).getPrecio();
+            marca = inv.getProducto(id).getMarca();
+            fecha = 
+            modelo.addRow(new Object[]{id,nombre,,,precio,cantidad,cantidad*precio});
+        }
+        catch(Exepciones e){
+            JOptionPane.showMessageDialog(null, e.getMessage() +" articulos","Error",JOptionPane.WARNING_MESSAGE);
         }
     }  
 }
