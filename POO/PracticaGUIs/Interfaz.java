@@ -27,6 +27,7 @@ public class Interfaz extends JFrame implements ActionListener{
     private JButton signIn, initGame, player1, player2;
     private ImageIcon icons[],icons2[];
     private boolean turno;
+    private GridBagConstraints dist;
 
 
     private class Escuchadorbot implements ActionListener {
@@ -67,7 +68,15 @@ public class Interfaz extends JFrame implements ActionListener{
         tabs[0].setLayout(null);
         tabs[1].setLayout(new GridLayout(8, 8));
         tabs[2].setLayout(new BorderLayout());
-        tabs[3].setLayout(new GridLayout(6,4));
+
+        tabs[3].setLayout(new GridBagLayout());
+        dist = new GridBagConstraints();
+		dist.anchor = GridBagConstraints.PAGE_START;
+		dist.fill = GridBagConstraints.BOTH;
+		dist.weightx = .20;
+		dist.weighty = .20;
+		dist.insets = new Insets(1, 1, 1, 2);
+
         tabPanel.addTab("Iniciar Sesion", tabs[0]);
         tabPanel.addTab("Juego de Ajedrez", tabs[1]);
         tabPanel.addTab("Tic Tac Toe", tabs[2]);
@@ -199,15 +208,34 @@ public class Interfaz extends JFrame implements ActionListener{
     }
     
     public void calculadora(){
-        screen  = new JTextField(12);
-        String texto[] = {"MC","M+","M-","MR","C","+-","/","X","7","8","9","-","4","5","6",
-        "+","1","2","3","%","=","0","."}; 
-        tabs[3].add(screen);
-        btCalc = new JButton[23];
-        for(int i = 0; i < btCalc.length; i++){
-            btCalc[i] = new JButton(texto[i]);        
-            tabs[3].add(btCalc[i]);
-        }
+        screen  = new JTextField(24);
+        String texto[] = {  "%","CE","C","\u232B",
+                            "1/X","x^2","√x","/",
+                            "7","8","9","x",
+                            "4","5","6","-",
+                            "1","2","3","+",
+                            "\u00B1","0",".","="}; 
+        btCalc = new JButton[texto.length];
+        int contador=0;
+
+
+        for (int i = 1; i < 7; i++) {
+			for (int j = 0; j < 4; j++) {
+				dist.gridx = j;
+				dist.gridy = i;
+
+                btCalc[contador] = new JButton(texto[contador]); 
+                tabs[3].add(btCalc[contador], dist);
+                contador++;
+			}
+		}
+
+        dist.gridx = 0;
+        dist.gridy = 0;
+        dist.gridwidth = 4;
+        dist.anchor = GridBagConstraints.PAGE_START;
+        dist.insets = new Insets(10, 4, 10, 4);
+        tabs[3].add(screen,dist);
     }
     
     @Override
