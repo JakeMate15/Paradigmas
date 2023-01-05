@@ -387,10 +387,11 @@ public class Cliente extends javax.swing.JFrame {
             Writer w = new BufferedWriter(escritor);
             w.write(contruyeCadTicket());
             w.close();
-            carritoCompra.setModel( new DefaultTableModel(new Object [][] {},
+            modelo = new DefaultTableModel(new Object [][] {},
             new String [] {
                 "Id","Producto","Marca","Fecha", "Precio", "Cantidad", "Subtotal"
-            }));
+            });
+            carritoCompra.setModel(modelo);
             totalCompraTxt.setText("$0.00");
         }
         catch(Exepciones e){
