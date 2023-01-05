@@ -323,6 +323,7 @@ public class Cliente extends javax.swing.JFrame {
     
     }  
 
+    //Añadir producto elegido al carrito de compras
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {   
         int cantidad = (Integer)cantidadCompraSelector.getValue();
         String nombre = selectorArticuloCombo.getSelectedItem().toString(); 
@@ -353,13 +354,16 @@ public class Cliente extends javax.swing.JFrame {
             precio = inv.getProducto(id).getPrecio();
             marca = inv.getProducto(id).getMarca();
             modelo.addRow(new Object[]{id,nombre,marca,fech,precio,cantidad,cantidad*precio});
-            totalCompraTxt.setText(String.valueOf(obtenSuma(productos)));
+            totalCompraTxt.setText("$" + String.format("%,.2f", obtenSuma(productos)));
+
+            cantidadCompraSelector.setValue(1);
         }
         catch(Exepciones e){
             JOptionPane.showMessageDialog(null, e.getMessage() +" articulos","Error",JOptionPane.WARNING_MESSAGE);
         }
     } 
     
+    //Obtenemos la suma del todo el carrito
     private double obtenSuma(HashMap<Integer,Integer> carrito){
         double res = 0;
 
@@ -383,10 +387,11 @@ public class Cliente extends javax.swing.JFrame {
             Writer w = new BufferedWriter(escritor);
             w.write(contruyeCadTicket());
             w.close();
-            /* 
-            System.out.println("-".repeat(85));
-            System.out.printf("|%-20s|%-20s|%-20s|%-20s|\n", "Descripción", "Precio", "Cantidad", "Subtotal");
-            System.out.println("-".repeat(85));*/
+            carritoCompra.setModel( new DefaultTableModel(new Object [][] {},
+            new String [] {
+                "Id","Producto","Marca","Fecha", "Precio", "Cantidad", "Subtotal"
+            }));
+            totalCompraTxt.setText("$0.00");
         }
         catch(Exepciones e){
             JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
@@ -401,7 +406,6 @@ public class Cliente extends javax.swing.JFrame {
         Calendar fecha = Calendar.getInstance();
         String id,cantidad,desc,fedh,precio,subtotal;
         double form;
-        DecimalFormat forMoneda = new DecimalFormat("0.00");
 
         cad.append(" ".repeat(39));
         cad.append("Tienda ESCOM");
@@ -414,7 +418,7 @@ public class Cliente extends javax.swing.JFrame {
         cad.append(nombre);
         cad.append("\n\n");
         cad.append("-".repeat(92));
-        cad.append("\n| Id | Cantidad |            descripcion            |    fecha   |   precio   |  subtotal  |");
+        cad.append("\n| Id | Cantidad |            Descripcion            |    Fecha   |   Precio   |  Subtotal  |");
         cad.append("\n");
         cad.append("-".repeat(92));
         cad.append("\n");
@@ -422,7 +426,7 @@ public class Cliente extends javax.swing.JFrame {
         for(int i=0; i<modelo.getRowCount();i++){
             id = String.valueOf(modelo.getValueAt(i, 0));
             cantidad = String.valueOf(modelo.getValueAt(i, 5));
-            desc = String.valueOf(modelo.getValueAt(i, 2));
+            desc = String.valueOf(modelo.getValueAt(i,1)) + " " + String.valueOf(modelo.getValueAt(i, 2));
             fedh = String.valueOf(modelo.getValueAt(i, 3));
 
             form = ((Number)modelo.getValueAt(i, 4)).doubleValue();
@@ -438,7 +442,7 @@ public class Cliente extends javax.swing.JFrame {
         cad.append(" ".repeat(70));
         cad.append("Total");
         cad.append(" ".repeat(5));
-        cad.append(obtenSuma(productos));
+        cad.append("$"+String.format("%,.2f", obtenSuma(productos)));
         cad.append("\n");
         cad.append("\n");
         cad.append("El apartado fecha indica la caducidad o garantia dependiendo el tipo de producto");
