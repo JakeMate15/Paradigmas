@@ -8,7 +8,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
-import java.text.DecimalFormat;
 
 /**
  *

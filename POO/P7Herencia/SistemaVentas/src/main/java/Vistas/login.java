@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 import Funcionamiento.*;
 import java.util.*;
@@ -120,7 +115,6 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     private void vistaAdmin(String nombre){
         try {

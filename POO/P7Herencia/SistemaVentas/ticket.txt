@@ -5,9 +5,10 @@ Cliente: Eduardo Morales
 --------------------------------------------------------------------------------------------
 | Id | Cantidad |            Descripcion            |    Fecha   |   Precio   |  Subtotal  |
 --------------------------------------------------------------------------------------------
+|1   |1         |Lavadora Mabe                      |4/1/2024    |$5,400.00   |$5,400.00   |
 |0   |1         |Television LED, 32 LG              |4/1/2024    |$7,600.00   |$7,600.00   |
-|1   |2         |Lavadora Mabe                      |4/1/2024    |$5,400.00   |$10,800.00  |
+|2   |5         |Galletas de animalitos Gamesa      |3/0/2024    |$35.50      |$177.50     |
 --------------------------------------------------------------------------------------------
-                                                                      Total     $18,590.50
+                                                                      Total     $13,177.50
 
 El apartado fecha indica la caducidad o garantia dependiendo el tipo de producto

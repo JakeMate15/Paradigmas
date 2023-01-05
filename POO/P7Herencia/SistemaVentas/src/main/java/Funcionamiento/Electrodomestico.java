@@ -17,21 +17,4 @@ public class Electrodomestico extends Producto{
         garantia = 12;
     }
 
-    public int getGarantia() {
-        return garantia;
-    }
-
-    public void setGarantia(int garantia) {
-        this.garantia = garantia;
-    }
-    
-
-    @Override
-    public String toString() {
-        return super.toString() + "{" +
-            " garantia='" + getGarantia() + "'" +
-            "}";
-    }
-
-
 }

@@ -27,12 +27,4 @@ public class Vivere extends Producto{
         this.Caducidad = Caducidad;
     }
     
-
-    @Override
-    public String toString() {
-        return super.toString() + "{" +
-            " Caducidad='" + getCaducidad() + "'" +
-            "}";
-    }
-    
 }

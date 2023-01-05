@@ -60,7 +60,7 @@ public class Producto {
         fecha.add(Calendar.YEAR,1);
 
         return fecha;
-    }
+    } 
     
     @Override
     public String toString() {
